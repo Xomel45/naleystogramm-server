@@ -1,0 +1,23 @@
+# Rust
+/target/
+
+# Сборочные артефакты
+/builds/
+
+# База данных (runtime)
+*.db
+*.db-shm
+*.db-wal
+
+# Конфиг с секретами (не коммитим — есть config.json как пример)
+# config.json — КОММИТИТСЯ (это пример без секретов)
+
+# Редакторы
+.idea/
+.vscode/
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
