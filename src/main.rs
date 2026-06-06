@@ -89,7 +89,7 @@ async fn main() -> anyhow::Result<()> {
 
 fn build_router(state: Arc<state::AppState>, mode: &str) -> Router {
     match mode {
-        "group" => Router::new()
+        "group" | "channel" => Router::new()
             .merge(group::router(Arc::clone(&state)))
             .merge(relay::router(Arc::clone(&state))),
         _ => Router::new()

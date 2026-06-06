@@ -28,6 +28,9 @@ rand          = "0.8"
 anyhow        = "1"
 regex         = "1"
 base64        = "0.22"
+x25519-dalek  = { version = "2", features = ["static_secrets"] }
+hkdf          = "0.12"
+aes-gcm       = "0.10"
 
 [profile.release]
 opt-level     = 3

@@ -74,18 +74,26 @@ pub async fn migrate(pool: &sqlx::SqlitePool, mode: &str) -> anyhow::Result<()> 
     .execute(pool)
     .await?;
 
-    if mode == "group" {
+    if mode == "group" || mode == "channel" {
         sqlx::query(
             "CREATE TABLE IF NOT EXISTS group_members (
                 id         INTEGER PRIMARY KEY AUTOINCREMENT,
                 username   TEXT UNIQUE NOT NULL,
                 pubkey     TEXT NOT NULL,
                 token_hash TEXT UNIQUE NOT NULL,
+                role       TEXT NOT NULL DEFAULT 'member',
                 joined_at  TEXT DEFAULT (datetime('now'))
             )",
         )
         .execute(pool)
         .await?;
+
+        // Миграция: добавить role если таблица уже существует без этой колонки
+        let _ = sqlx::query(
+            "ALTER TABLE group_members ADD COLUMN role TEXT NOT NULL DEFAULT 'member'",
+        )
+        .execute(pool)
+        .await;
 
         sqlx::query(
             "CREATE TABLE IF NOT EXISTS group_messages (

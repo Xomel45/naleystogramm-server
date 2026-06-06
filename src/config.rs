@@ -116,6 +116,9 @@ pub struct GroupConfig {
     pub history_limit:    u32,
     #[serde(default = "default_true")]
     pub allow_file_relay: bool,
+    // Если true — только owner/admin могут отправлять сообщения (режим канала)
+    #[serde(default)]
+    pub broadcast_only:   bool,
 }
 
 impl Default for GroupConfig {
@@ -128,6 +131,7 @@ impl Default for GroupConfig {
             history:          true,
             history_limit:    1000,
             allow_file_relay: true,
+            broadcast_only:   false,
         }
     }
 }
